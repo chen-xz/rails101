@@ -11,7 +11,7 @@ def show
 end
 
 def edit
-    find_group_and_check_permission
+
 end
 
   def new
@@ -20,19 +20,16 @@ end
 
   def create
     @group = Group.new(group_params)
-    @group.User = current_user
+    @group.user = current_user
 
     if @group.save
       redirect_to groups_path
     else
       render :new
     end
-
-    redirect_to groups_path
   end
 
   def update
-    find_group_and_check_permission
 
       if @group.update(group_params)
         redirect_to groups_path, notice: "Update Success"
@@ -42,7 +39,7 @@ end
     end
 
     def destroy
-      find_group_and_check_permission
+
       @group.destroy
       redirect_to groups_path, alert: "Group deleted"
     end
@@ -66,4 +63,3 @@ end
     params.require(:group).permit(:title, :description)
 
   end
-end
